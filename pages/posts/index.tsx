@@ -24,7 +24,7 @@ const Posts: React.FC<IProps> = ({posts}) => {
 
 export default Posts;
 
-export const getServerSideProps: GetServerSideProps = async (content) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const response = await axios.get<ApiPost[]>('https://jsonplaceholder.typicode.com/posts?_limit=10');
 
   return {

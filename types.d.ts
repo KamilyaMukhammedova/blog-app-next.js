@@ -5,3 +5,13 @@ export interface ApiPost {
   body: string
 }
 
+export interface ApiUser {
+  username: string,
+  email: string
+}
+
+export interface FullPostInfo extends ApiUser {
+  id: number,
+  title: string,
+  body: string,
+}
