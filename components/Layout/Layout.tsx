@@ -6,7 +6,7 @@ const Layout: React.FC<React.PropsWithChildren> = ({children}) => {
   return (
     <>
       <Navbar/>
-      <Container as="main" maxWidth="6xl" p="5">
+      <Container as="main" maxWidth="7xl" p="5">
         {children}
       </Container>
     </>

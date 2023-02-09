@@ -6,8 +6,9 @@ const Navbar: React.FC = () => {
   return (
     <header>
       <Box
-        as="nav" bg="gray.700"
-        p="4" color="white"
+        as="nav" bg="mistyrose"
+        p="4" color="dimgrey"
+        fontSize="25px"
       >
         <Link href={'/'}>Blog app</Link>
       </Box>
