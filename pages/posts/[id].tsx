@@ -9,6 +9,7 @@ interface IProps {
 }
 
 const Post: React.FC<IProps> = ({post}) => {
+  console.log(post)
   return (
     <>
       <PostDetails
@@ -24,30 +25,28 @@ const Post: React.FC<IProps> = ({post}) => {
 
 export default Post;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<{ post: FullPostInfo }> = async (context) => {
   const postId = context.params?.id as string;
+  const postFullInfo: FullPostInfo = {
+    username: '',
+    email: '',
+    id: parseInt(postId),
+    title: '',
+    body: ''
+  };
 
-  const postResponse = await axios.get<ApiPost | null>('https://jsonplaceholder.typicode.com/posts/' + postId);
+  try {
+    const postResponse = await axios.get<ApiPost | null>('https://jsonplaceholder.typicode.com/posts/' + postId);
+    if (postResponse.data) {
+      const userId = postResponse.data.userId;
+      const userResponse = await axios.get<ApiUser | null>('https://jsonplaceholder.typicode.com/users/' + userId);
 
-  if (postResponse.data) {
-    const userId = postResponse.data.userId;
-    const userResponse = await axios.get<ApiUser | null>('https://jsonplaceholder.typicode.com/users/' + userId);
-
-    if (userResponse.data) {
-      const postFullInfo: FullPostInfo = {
-        username: userResponse.data.username,
-        email: userResponse.data.email,
-        id: postResponse.data.id,
-        title: postResponse.data.title,
-        body: postResponse.data.body,
-      };
-      return {
-        props: {
-          post: postFullInfo
-        }
-      };
+      postFullInfo.username = userResponse.data ? userResponse.data.username : 'No user';
+      postFullInfo.email = userResponse.data ? userResponse.data.email : 'No email';
+      postFullInfo.title = postResponse.data.title;
+      postFullInfo.body = postResponse.data.body;
     }
-  } else {
+  } catch (e) {
     return {
       notFound: true
     };
@@ -55,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return {
     props: {
-      post: postResponse.data
+      post: postFullInfo
     }
   }
 };

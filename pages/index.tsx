@@ -1,9 +1,27 @@
-import Posts from "@/pages/posts";
+import { GetStaticProps } from "next";
+import axios from "axios";
+import { ApiPost } from "@/types";
+import AllPosts from "@/components/AllPosts/AllPosts";
+import React from "react";
 
-export default function Home() {
+interface IProps {
+  posts: ApiPost[]
+}
+
+const Home: React.FC<IProps> = ({posts}) => {
   return (
-    <>
-     {/*<Posts/>*/}
-    </>
+    <AllPosts apiPosts={posts}/>
   );
 };
+
+export const getStaticProps: GetStaticProps<{ posts: ApiPost[] }> = async (context) => {
+  const response = await axios.get<ApiPost[]>('https://jsonplaceholder.typicode.com/posts');
+
+  return {
+    props: {
+      posts: response.data
+    }
+  };
+};
+
+export default Home;
