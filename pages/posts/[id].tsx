@@ -1,6 +1,6 @@
 import React from 'react';
-import { GetServerSideProps } from "next";
 import axios from "axios";
+import { GetServerSideProps } from "next";
 import { ApiPost, ApiUser, FullPostInfo } from "@/types";
 import PostDetails from "@/components/PostDetails/PostDetails";
 
@@ -9,7 +9,6 @@ interface IProps {
 }
 
 const Post: React.FC<IProps> = ({post}) => {
-  console.log(post)
   return (
     <>
       <PostDetails

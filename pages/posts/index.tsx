@@ -1,6 +1,6 @@
 import React from 'react';
-import { GetStaticProps } from "next";
 import axios from "axios";
+import { GetStaticProps } from "next";
 import { ApiPost } from "@/types";
 import AllPosts from "@/components/AllPosts/AllPosts";
 

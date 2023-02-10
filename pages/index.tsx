@@ -1,8 +1,9 @@
+import React from "react";
 import { GetStaticProps } from "next";
 import axios from "axios";
-import { ApiPost } from "@/types";
 import AllPosts from "@/components/AllPosts/AllPosts";
-import React from "react";
+import { ApiPost } from "@/types";
+import Head from "next/head";
 
 interface IProps {
   posts: ApiPost[]
@@ -10,7 +11,13 @@ interface IProps {
 
 const Home: React.FC<IProps> = ({posts}) => {
   return (
-    <AllPosts apiPosts={posts}/>
+    <>
+      <Head>
+        <title>Blog app</title>
+        <meta name="keywords" content="blog-app, next.js"/>
+      </Head>
+      <AllPosts apiPosts={posts}/>
+    </>
   );
 };
 

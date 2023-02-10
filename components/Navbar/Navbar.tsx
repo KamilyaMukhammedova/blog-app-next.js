@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box } from "@chakra-ui/react";
 import Link from "next/link";
+import { Box } from "@chakra-ui/react";
 
 const Navbar: React.FC = () => {
   return (
